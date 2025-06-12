@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATHCORE - Prove seu Valor</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Inter:wght@400;500;700&family=Press+Start+2P&family=Righteous&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilos e Fundo Vaporwave */
+        body {
+            background-color: #1a0a24; 
+            background-image: url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ2xiOHZ4YmVtNGM0d2diZTNka2h0MzBnMDhqOXBnajE4a3N6d2FkOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xUOwGcu6wd0cXBj5n2/giphy.gif');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #E0E0E0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; 
+        }
+        
+        .font-display {
+            font-family: 'Chakra Petch', sans-serif;
+        }
+
+        .section-overlay-bg {
+            background-color: rgba(26, 10, 36, 0.88);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .border-gradient {
+            border: 2px solid transparent;
+            background: linear-gradient(#1a1a1a, #1a1a1a) padding-box, linear-gradient(145deg, #00f6ff, #ff00c1) border-box;
+            transition: all 0.3s ease;
+        }
+        .border-gradient:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(0, 246, 255, 0.5), 0 0 25px rgba(255, 0, 193, 0.5);
+        }
+
+        /* --- EFEITOS DO TÍTULO --- */
+
+        #title-container {
+            display: grid;
+            place-items: center;
+        }
+
+        @keyframes hotline-sway {
+            from {
+                transform: translate(-16px, -6px) rotate(-3.5deg);
+            }
+            to {
+                transform: translate(16px, 6px) rotate(3.5deg);
+            }
+        }
+        
+        .retro-title {
+            grid-area: 1 / 1; 
+            position: relative;
+            /* Ajuste de fonte para melhor visualização em mobile */
+            font-size: clamp(2.5rem, 10vw, 8rem); 
+            line-height: 1;
+            font-family: 'Press Start 2P', sans-serif;
+            text-transform: uppercase;
+            transform-origin: center;
+            animation-name: hotline-sway;
+            animation-duration: 2.4s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            animation-fill-mode: both;
+        }
+        
+        .main-title { color: #fff; z-index: 9; }
+        .trail-1 { color: #FF456B; opacity: 0.6; filter: blur(1px); animation-delay: 100ms; z-index: 8; }
+        .trail-2 { color: #FF2D55; opacity: 0.5; filter: blur(2px); animation-delay: 200ms; z-index: 7; }
+        .trail-3 { color: #E80A89; opacity: 0.5; filter: blur(2px); animation-delay: 300ms; z-index: 6; }
+        .trail-4 { color: #FF71CE; opacity: 0.4; filter: blur(3px); animation-delay: 400ms; z-index: 5; }
+        .trail-5 { color: #B967FF; opacity: 0.4; filter: blur(4px); animation-delay: 500ms; z-index: 4; }
+        .trail-6 { color: #05FFA1; opacity: 0.2; filter: blur(4px); animation-delay: 600ms; z-index: 3; }
+        .trail-7 { color: #F96E00; opacity: 0.2; filter: blur(5px); animation-delay: 800ms; z-index: 2; }
+        .trail-8 { color: #D70000; opacity: 0.2; filter: blur(8px); animation-delay: 1000ms; z-index: 1; }
+        
+        /* --- ESTILOS GERAIS E LAYOUT --- */
+        
+        .hotline-btn {
+            display: inline-block;
+            margin-top: 2.5rem;
+            padding: 1rem 2.5rem;
+            color: #ff66cc;
+            background-color: transparent;
+            border: 3px solid #ff00c1;
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.25rem; font-weight: 700; text-transform: uppercase;
+            text-shadow: 1px 1px 0 #00ffff;
+            transition: all 0.2s ease-in-out; cursor: pointer;
+            animation: flicker-btn 0.3s infinite alternate;
+        }
+        @keyframes flicker-btn { from { opacity: 1; } to { opacity: 0.9; } }
+        .hotline-btn:hover {
+            background-color: #ff00c1; color: #1a0a24;
+            box-shadow: 0 0 15px #00f6ff, 0 0 25px #ff00c1;
+            transform: scale(1.05);
+        }
+        
+        .gameplay-gif {
+            width: 100%; height: 200px; object-fit: cover; object-position: center;
+        }
+        
+        /* --- Estilos das Páginas Legais --- */
+        .content-page-box {
+            background-color: rgba(26, 10, 36, 0.92);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        }
+        .privacy-box { border: 2px solid #ff00c1; }
+        .privacy-box h2 { text-shadow: 0 0 8px #00f6ff; }
+        .privacy-box h3 { color: #00f6ff; }
+        .privacy-box .back-button { border-color: #ff00c1; color: #ff00c1; text-shadow: 1px 1px 0 #00ffff; }
+        .privacy-box .back-button:hover { background-color: #ff00c1; color: #1a0a24; box-shadow: 0 0 15px #00f6ff, 0 0 25px #ff00c1; }
+
+        .terms-box { border: 2px solid #00f6ff; }
+        .terms-box h2 { text-shadow: 0 0 8px #ff00c1; }
+        .terms-box h3 { color: #ff00c1; }
+        .terms-box .back-button { border-color: #00f6ff; color: #00f6ff; text-shadow: 1px 1px 0 #ff00ff; }
+        .terms-box .back-button:hover { background-color: #00f6ff; color: #1a0a24; box-shadow: 0 0 15px #ff00c1, 0 0 25px #00f6ff; }
+
+        /* --- SEÇÃO DE HISTÓRIA ATUALIZADA --- */
+        #story {
+            position: relative;
+            background-image: url('https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXZxbXRhdTkxc3B1bWxiNGtyb2R0d3YwZW9wMWtiaXVpaWRrZHdhOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/c4q0gOGYk2aolIlGlh/giphy.gif');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        #story::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(26, 10, 36, 0.85);
+        }
+        .story-content {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .story-content.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- POPUP --- */
+        .popup-image-container {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Container da Página Principal -->
+    <div id="main-page">
+        <header class="bg-black/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50">
+            <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="#home" class="nav-link text-3xl font-display font-bold text-white tracking-widest" style="text-shadow: 0 0 5px #00f6ff;">
+                    M C O R E
+                </a>
+                <div class="hidden md:flex items-center space-x-8 font-semibold">
+                    <a href="#story" class="text-gray-300 hover:text-cyan-400 transition-colors duration-300">A HISTÓRIA</a>
+                    <a href="#gameplay" class="text-gray-300 hover:text-cyan-400 transition-colors duration-300">GAMEPLAY</a>
+                    <a href="#world" class="text-gray-300 hover:text-cyan-400 transition-colors duration-300">O MUNDO</a>
+                    <a href="https://drive.google.com/uc?export=download&id=1YkMCJf2MmSHdyusTfdY08wsbsiAP2j6d" download class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-2 px-6 rounded-lg shadow-lg shadow-cyan-500/50 transition-all duration-300 transform hover:scale-105">
+                        Instale agora!
+                    </a>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-btn" class="text-white focus:outline-none">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </nav>
+            <div id="mobile-menu" class="hidden md:hidden">
+                 <a href="#story" class="block py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">A HISTÓRIA</a>
+                 <a href="#gameplay" class="block py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">GAMEPLAY</a>
+                 <a href="#world" class="block py-2 px-4 text-sm text-gray-300 hover:bg-gray-800">O MUNDO</a>
+                 <a href="#" class="block py-2 px-4 text-sm bg-cyan-500 text-black text-center font-bold">Somente para pc :/</a>
+            </div>
+        </header>
+
+        <main>
+            <section id="hero" class="h-screen w-full flex items-center justify-center text-center relative">
+                <div class="absolute inset-0 bg-black/50"></div>
+                <div class="relative z-10 px-4 flex flex-col items-center justify-center">
+                     <div id="title-container">
+                        <div class="retro-title trail-8">MathCore</div>
+                        <div class="retro-title trail-7">MathCore</div>
+                        <div class="retro-title trail-6">MathCore</div>
+                        <div class="retro-title trail-5">MathCore</div>
+                        <div class="retro-title trail-4">MathCore</div>
+                        <div class="retro-title trail-3">MathCore</div>
+                        <div class="retro-title trail-2">MathCore</div>
+                        <div class="retro-title trail-1">MathCore</div>
+                        <div class="retro-title main-title">MathCore</div>
+                     </div>
+                     
+                    <p class="mt-12 text-xl md:text-2xl text-cyan-300 font-semibold max-w-3xl mx-auto" style="text-shadow: 0 0 8px rgba(0,246,255,0.7);">
+                        A REALIDADE FOI CORROMPIDA. OS NÚMEROS SÃO SUAS ARMAS. SEU VALOR DEVE SER PROVADO.
+                    </p>
+                    
+                    <!-- Botões responsivos -->
+                    <a href="https://drive.google.com/uc?export=download&id=1YkMCJf2MmSHdyusTfdY08wsbsiAP2j6d" download class="hotline-btn hidden md:inline-block">
+                        Clique aqui para começar sua jornada
+                    </a>
+                    <span class="hotline-btn inline-block md:hidden cursor-not-allowed opacity-70">
+                        Use um computador para embarcar nessa jornada
+                    </span>
+
+                </div>
+            </section>
+
+            <section id="story" class="py-20 md:py-32">
+                <div class="relative z-10 container mx-auto px-6 text-center flex flex-col items-center">
+                    <div class="story-content max-w-3xl">
+                        <h2 class="text-4xl md:text-5xl font-display font-bold text-cyan-400 mb-6" style="text-shadow: 0 0 10px #00f6ff;">O CÓDIGO FONTE DO CAOS</h2>
+                        <div class="bg-black/60 p-6 rounded-lg border border-fuchsia-500/30">
+                            <p class="mb-4 text-lg text-gray-200 text-left">
+                                Em MATHCORE, você é <strong>Zero</strong>, um dígito banido e considerado sem valor. Em um mundo onde conceitos matemáticos tomaram forma, a realidade entrou em colapso.
+                            </p>
+                            <p class="mb-4 text-lg text-gray-200 text-left">
+                                A <strong>"Calculatrice"</strong>, uma inteligência antiga e esquecida, enlouqueceu após ser sobrecarregada por séculos resolvendo equações universais. Ela transformou o mundo em um campo de batalha caótico onde apenas os números mais fortes sobrevivem.
+                            </p>
+                            <p class="text-lg text-gray-200 text-left">
+                                Agora, armado com os próprios números, você deve atravessar zonas de combate distorcidas — cada uma representando uma operação matemática corrompida — para finalmente provar o seu valor e restaurar a lógica do universo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="gameplay" class="py-20 md:py-32 section-overlay-bg">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-4" style="text-shadow: 0 0 10px #ff00c1;">DOMINE A ARITMÉTICA DO COMBATE</h2>
+                    <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-16">Sobreviva a hordas de inimigos em um inferno de balas numérico e implacável.</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="border-gradient rounded-xl p-8 text-left flex flex-col">
+                            <div class="flex-grow">
+                                <h3 class="text-2xl font-bold font-display text-cyan-400 mb-4">AÇÃO TOP-DOWN FRENÉTICA</h3>
+                                <p class="text-gray-300">Movimentação rápida e tiroteios precisos. Inspirado em clássicos como Hotline Miami, cada confronto é um quebra-cabeça mortal que exige reflexos e estratégia.</p>
+                            </div>
+                            <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWM0a2VteHJkMGtrNXR4MmI2ZW5yaWY5Njg3bHFlbWE0aGhhbmJ1OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/myKiI8gb8ShBcAorHr/giphy.gif" class="mt-6 rounded-lg gameplay-gif" alt="GIF de gameplay">
+                        </div>
+                        <div class="border-gradient rounded-xl p-8 text-left flex flex-col">
+                           <div class="flex-grow">
+                                <h3 class="text-2xl font-bold font-display text-cyan-400 mb-4">ARSENAL NUMÉRICO</h3>
+                                <p class="text-gray-300">Seu poder vem dos números. Colete dígitos e combine-os para criar armas devastadoras baseadas em operações matemáticas: some os números das armas já encontradas e fique cada vez mais forte.</p>
+                           </div>
+                             <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTRxbWg4ZGdld2puZGkzYmRrdmhyNGFlbHZ3cGd4aGJqaXpkanhkbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/y0PptdWPt6xFRfdJR7/giphy.gif" class="mt-6 rounded-lg gameplay-gif" alt="GIF do sistema de armas">
+                        </div>
+                        <div class="border-gradient rounded-xl p-8 text-left flex flex-col">
+                            <div class="flex-grow">
+                                <h3 class="text-2xl font-bold font-display text-cyan-400 mb-4">ROGUE-LIKE IMPLACÁVEL</h3>
+                                <p class="text-gray-300">Cada partida é única. Zonas de combate, inimigos e power-ups são gerados conforme seu progresso na fase. Adapte-se, supere os desafios ou seja reduzido a nada e comece de novo.</p>
+                            </div>
+                             <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZG5mMzM5ZzhmcXRraGNsczVzZnJwa3lmZTZ2MWN1eWE0bTIydnF1biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Ww4AJeoJ1m6aoySDig/giphy.gif" class="mt-6 rounded-lg gameplay-gif" alt="GIF de elementos roguelike">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="world" class="py-20 md:py-32 section-overlay-bg">
+                 <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-fuchsia-500 mb-6" style="text-shadow: 0 0 10px #ff00c1;">EXPLORE A REALIDADE FRATURADA</h2>
+                    <p class="text-lg text-gray-300 max-w-4xl mx-auto mb-16">As leis da matemática foram quebradas, dando origem a dimensões instáveis e perigosas. Cada zona é o domínio de uma operação corrompida, com inimigos e desafios temáticos.</p>
+        
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div id="fase-1-2-card" class="relative rounded-xl p-8 flex flex-col items-center justify-start h-full text-center border-gradient">
+                            <h3 class="text-3xl font-bold font-display text-cyan-400 mb-4">FASES 1-2</h3>
+                            <p class="text-gray-300 flex-grow">Repletas de inimigos de Soma e Subtração.</p>
+                            <div class="text-7xl font-black text-cyan-400/80 mt-6 select-none" aria-hidden="true">
+                                + / -
+                            </div>
+                            <div id="fase-1-2-popup" class="popup-image-container hidden absolute -top-4 left-1/2 -translate-x-1/2 -translate-y-full w-64 opacity-0 scale-95">
+                                <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeW5qZHhoam9rbXp6bDBxcDZxeXBoN3lmMXQ3cmxybGp2OHM1czRlMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/svHTLJcDxl4bJVn5uB/giphy.gif" alt="Popup Fases 1-2" class="rounded-xl border-2 border-cyan-500 shadow-2xl shadow-cyan-500/50">
+                            </div>
+                        </div>
+        
+                        <div id="fase-3-4-card" class="relative rounded-xl p-8 flex flex-col items-center justify-start h-full text-center border-gradient">
+                            <h3 class="text-3xl font-bold font-display text-cyan-400 mb-4">FASES 3-4</h3>
+                            <p class="text-gray-300 flex-grow">Cheia de inimigos de Multiplicação e Divisão.</p>
+                             <div class="text-7xl font-black text-cyan-400/80 mt-6 select-none" aria-hidden="true">
+                                &times; / &divide;
+                             </div>
+                             <div id="fase-3-4-popup" class="popup-image-container hidden absolute -top-4 left-1/2 -translate-x-1/2 -translate-y-full w-64 opacity-0 scale-95">
+                                <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2VqeXRoY3V5N3gxaGhsaG45bGU2NW9nOW1oeXJ4cWJ4MGFjNXZoeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MFtGOlabWLbxGziZm9/giphy.gif" alt="Popup Fases 3-4" class="rounded-xl border-2 border-cyan-500 shadow-2xl shadow-cyan-500/50">
+                            </div>
+                        </div>
+        
+                        <div id="chefe-final-card" class="relative rounded-xl p-8 flex flex-col items-center justify-start h-full text-center border-gradient" style="background: linear-gradient(#1a1a1a, #1a1a1a) padding-box, linear-gradient(145deg, #ff00c1, #c900ff) border-box;">
+                             <h3 class="text-3xl font-bold font-display text-fuchsia-500 mb-4">CHEFE FINAL</h3>
+                             <p class="text-gray-300 flex-grow">Um combate intenso contra A Calculatrice.</p>
+                             <div class="text-7xl font-black text-fuchsia-500/80 mt-6 select-none" aria-hidden="true">
+                                &sum;
+                             </div>
+                            <div id="calculatrice-popup" class="popup-image-container hidden absolute -top-4 left-1/2 -translate-x-1/2 -translate-y-full w-64 opacity-0 scale-95">
+                                <img src="https://i.postimg.cc/zB0m0Hnv/calculatrice057.png" alt="Popup da Calculatrice" class="rounded-xl border-2 border-fuchsia-500 shadow-2xl shadow-fuchsia-500/50">
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+        </main>
+        
+        <footer class="bg-black/90 py-12">
+            <div class="container mx-auto px-6 text-center text-gray-500">
+                <div class="mb-6">
+                    <h3 class="font-display text-2xl text-white mb-4">SIGA O DESENVOLVIMENTO</h3>
+                    <div class="flex justify-center space-x-6">
+                        <a href="https://x.com/guisonolento" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" /></svg></a>
+                         <a href="https://www.instagram.com/g.gomszz/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808.06s-2.784-.013-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.048-1.024-.06-1.378-.06-3.808s.012-2.784.06-3.808c.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 016.345 2.525c.636-.247 1.363-.416 2.427.465C9.792 2.013 10.146 2 12.315 2zm-1.003 3.362c-1.09.049-1.73.211-2.186.385A2.89 2.89 0 007.25 7.25c-.174.456-.336 1.096-.385 2.186-.049 1.022-.06 1.353-.06 3.567s.011 2.545.06 3.567c.049 1.09.211 1.73.385 2.186a2.89 2.89 0 001.523 1.523c.456.174 1.096.336 2.186.385 1.022.049 1.353.06 3.567.06s2.545-.011 3.567-.06c1.09-.049 1.73-.211 2.186-.385a2.89 2.89 0 001.523-1.523c.174-.456.336-1.096-.385-2.186.049-1.022.06-1.353.06-3.567s-.011-2.545-.06-3.567c-.049-1.09-.211-1.73-.385-2.186a2.89 2.89 0 00-1.523-1.523c-.456-.174-1.096-.336-2.186-.385-1.022-.049-1.353-.06-3.567-.06s-2.545.011-3.567.06zM12 15.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7zm0-9a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM16.5 8.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" clip-rule="evenodd" /></svg></a>
+                    </div>
+                </div>
+                <div class="mt-8 border-t border-gray-800 pt-8">
+                    <p>&copy; 2025 GOMSZ DEV. Todos os direitos reservados.</p>
+                    <p class="text-sm">MATHCORE e todos os logotipos relacionados são marcas registradas ou marcas comerciais da SAMAMBAIA PRODUCTIONS.</p>
+                    <div class="mt-4 flex justify-center space-x-4">
+                        <a href="#privacy" class="nav-link hover:text-white">Política de Privacidade</a>
+                        <span>|</span>
+                        <a href="#terms" class="nav-link hover:text-white">Termos de Serviço</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="privacy-page" class="hidden">
+        <div class="container mx-auto p-4 md:p-8">
+            <div class="content-page-box privacy-box max-w-4xl mx-auto rounded-xl p-8 md:p-12 shadow-2xl shadow-fuchsia-900/40">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-cyan-400 mb-8 text-center">Política de Privacidade</h2>
+                <div class="space-y-6 text-gray-300">
+                    <p><strong>Última atualização:</strong> 11 de junho de 2025</p>
+                    <p>Bem-vindo a MATHCORE. Esta Política de Privacidade descreve como Guilherme Gomes, atuando sob o nome de desenvolvedor <strong>GOMSZ DEV</strong>, e a <strong>SAMAMBAIA PRODUCTIONS</strong> ("nós", "nosso") coletam, usam e protegem suas informações quando você joga nosso jogo.</p>
+                    <div>
+                        <h3 class="font-display text-2xl font-bold mb-2">1. Coleta de Dados</h3>
+                        <p>Coletamos informações mínimas necessárias para operar e melhorar o jogo. Isso inclui:</p>
+                        <ul class="list-disc list-inside mt-2 pl-4">
+                            <li><strong>Dados de Jogo:</strong> Seu progresso, pontuações, conquistas e itens coletados.</li>
+                            <li><strong>Dados Analíticos:</strong> Informações anônimas sobre como você joga, como tempo de sessão, fases jogadas e interações com a UI. Isso nos ajuda a balancear a dificuldade e corrigir bugs.</li>
+                            <li><strong>Dados do Dispositivo:</strong> Modelo do dispositivo e sistema operacional para otimizar a performance.</li>
+                        </ul>
+                        <p class="mt-2">Não coletamos informações de identificação pessoal (como nome, e-mail ou endereço) diretamente.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-display text-2xl font-bold mb-2">2. Uso das Informações</h3>
+                        <p>As informações coletadas são usadas exclusivamente para:</p>
+                        <ul class="list-disc list-inside mt-2 pl-4">
+                            <li>Fornecer e manter a funcionalidade do jogo.</li>
+                            <li>Melhorar e otimizar a experiência do usuário.</li>
+                            <li>Corrigir bugs e problemas técnicos.</li>
+                            <li>Implementar recursos como placares de líderes (leaderboards).</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-display text-2xl font-bold mb-2">3. Segurança dos Dados</h3>
+                        <p>Estamos comprometidos em proteger suas informações. Usamos medidas de segurança padrão da indústria para proteger os dados contra acesso, alteração ou destruição não autorizados.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-display text-2xl font-bold mb-2">4. Alterações nesta Política</h3>
+                        <p>Podemos atualizar esta política periodicamente. Notificaremos sobre quaisquer alterações publicando a nova política nesta página. Recomendamos que você revise esta página regularmente.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-display text-2xl font-bold mb-2">5. Contato</h3>
+                        <p>Se você tiver alguma dúvida sobre esta Política de Privacidade, entre em contato conosco em: <a href="mailto:guilherme.santos@phoenixsolucoes.com.br" class="text-cyan-400 hover:underline">guilherme.santos@phoenixsolucoes.com.br</a>.</p>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#home" class="nav-link back-button inline-block font-display font-bold py-3 px-8 border-2 rounded-lg transition-all duration-300 transform hover:scale-105">
+                        VOLTAR
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="terms-page" class="hidden">
+        <div class="container mx-auto p-4 md:p-8">
+            <div class="content-page-box terms-box max-w-4xl mx-auto rounded-xl p-8 md:p-12 shadow-2xl shadow-cyan-900/40">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-fuchsia-500 mb-8 text-center">Termos de Serviço</h2>
+                <div class="space-y-6 text-gray-300">
+                    <p><strong>Última atualização:</strong> 11 de junho de 2025</p>
+                    <p>Estes Termos de Serviço ("Termos") governam seu acesso e uso do jogo MATHCORE. Ao jogar, você concorda com estes Termos.</p>
+                    <div>
+                        <h3 class="font-display text-2xl font-bold mb-2">1. Licença de Uso</h3>
+                        <p>Concedemos a você uma licença limitada, não exclusiva, intransferível e revogável para usar o MATHCORE para seu entretenimento pessoal e não comercial. Você concorda em não usar o jogo para qualquer outro propósito.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-display text-2xl font-bold mb-2">2. Conduta do Usuário</h3>
+                        <p>Você concorda em não se envolver em nenhuma das seguintes atividades proibidas:</p>
+                        <ul class="list-disc list-inside mt-2 pl-4">
+                            <li>Usar cheats, exploits, automação, bots, hacks, mods ou qualquer software não autorizado para modificar ou interferir na experiência do jogo.</li>
+                            <li>Explorar o jogo para qualquer finalidade comercial.</li>
+                            <li>Interromper ou sobrecarregar os servidores do jogo.</li>
+                            <li>Usar linguagem ou comportamento tóxico, abusivo ou de assédio.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-display text-2xl font-bold mb-2">3. Propriedade Intelectual</h3>
+                        <p>MATHCORE e todos os seus componentes (visuais, código, áudio, personagens) são propriedade de Guilherme Gomes Dos Santos(<strong>GOMSZ DEV</strong>) e <strong>SAMAMBAIA PRODUCTIONS</strong>. Nossos direitos são protegidos por leis de propriedade intelectual.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-display text-2xl font-bold mb-2">4. Rescisão</h3>
+                        <p>Reservamo-nos o direito de suspender ou encerrar seu acesso ao jogo a qualquer momento, por qualquer motivo, incluindo, mas não se limitando a, violação destes Termos, sem aviso prévio.</p>
+                    </div>
+                     <div>
+                        <h3 class="font-display text-2xl font-bold mb-2">5. Lei Aplicável</h3>
+                        <p>Estes Termos serão regidos e interpretados de acordo com as leis do Brasil, sem levar em conta o conflito de disposições legais.</p>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#home" class="nav-link back-button inline-block font-display font-bold py-3 px-8 border-2 rounded-lg transition-all duration-300 transform hover:scale-105">
+                        VOLTAR
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainPage = document.getElementById('main-page');
+            const privacyPage = document.getElementById('privacy-page');
+            const termsPage = document.getElementById('terms-page');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const chefeFinalCard = document.getElementById('chefe-final-card');
+            const calculatricePopup = document.getElementById('calculatrice-popup');
+            const fase12Card = document.getElementById('fase-1-2-card');
+            const fase12Popup = document.getElementById('fase-1-2-popup');
+            const fase34Card = document.getElementById('fase-3-4-card');
+            const fase34Popup = document.getElementById('fase-3-4-popup');
+            const storySection = document.getElementById('story');
+            const storyContent = document.querySelector('.story-content');
+
+            const routes = {
+                '#privacy': privacyPage,
+                '#terms': termsPage,
+                '#home': mainPage 
+            };
+
+            function showPage(hash) {
+                if (mainPage) mainPage.classList.add('hidden');
+                if (privacyPage) privacyPage.classList.add('hidden');
+                if (termsPage) termsPage.classList.add('hidden');
+
+                const targetPage = routes[hash] || mainPage;
+
+                if (targetPage) {
+                    targetPage.classList.remove('hidden');
+                }
+                
+                window.scrollTo(0, 0);
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    const href = link.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        const page = routes[href];
+                        if (page) {
+                            event.preventDefault();
+                            history.pushState(null, null, href); 
+                            showPage(href);
+                        }
+                    }
+                });
+            });
+
+            window.addEventListener('popstate', () => {
+                showPage(window.location.hash || '#home');
+            });
+
+            showPage(window.location.hash || '#home');
+
+            // Lógica dos Popups
+            const setupPopup = (card, popup) => {
+                if(card && popup) {
+                    card.addEventListener('mouseenter', () => {
+                        popup.classList.remove('hidden', 'opacity-0', 'scale-95');
+                        popup.classList.add('opacity-100', 'scale-100');
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        popup.classList.remove('opacity-100', 'scale-100');
+                        popup.classList.add('opacity-0', 'scale-95');
+                        setTimeout(() => {
+                            popup.classList.add('hidden');
+                        }, 300);
+                    });
+                }
+            };
+            setupPopup(chefeFinalCard, calculatricePopup);
+            setupPopup(fase12Card, fase12Popup);
+            setupPopup(fase34Card, fase34Popup);
+
+            // Animação de entrada da seção de História
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if(storyContent) {
+                            storyContent.classList.add('is-visible');
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            if (storySection) {
+                observer.observe(storySection);
+            }
+
+            // Script para menu mobile
+            const btn = document.getElementById('menu-btn');
+            const menu = document.getElementById('mobile-menu');
+
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    if (menu) {
+                        menu.classList.toggle('hidden');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
